@@ -12,13 +12,23 @@ public class MyFirstImmutableEntityTest {
 
     @Test
     public void shouldHaveCreatedPublicFinalClassWithoutAnyPackage() {
-        assertClassExistsInDefaultPackage();
+        final Class<?> myFirstImmutableClass = assertClassExistsInDefaultPackage();
+
+        if(!Modifier.isPublic(myFirstImmutableClass.getModifiers())) {
+            fail("The class " + CLASS_NAME + " has not been declared 'public'");
+        }
+
+        if(!Modifier.isFinal(myFirstImmutableClass.getModifiers())) {
+            fail("The class " + CLASS_NAME + " has not been declared 'final'");
+        }
     }
 
     @Test
     public void shouldHaveAddedPrivateFinalIntFieldToTheClass() {
         final Class<?> myFirstImmutableClass = assertClassExistsInDefaultPackage();
+
         final Field field = assertImmutableFieldExistsInClass(myFirstImmutableClass);
+
         if(!field.getType().equals(int.class)) {
             fail("The field " + FIELD_NAME + " has been found in " + CLASS_NAME +
                     " but it is of type " + field.getType() + " rather than 'int'");
@@ -43,7 +53,7 @@ public class MyFirstImmutableEntityTest {
         try {
             return Class.forName(CLASS_NAME);
         } catch (ClassNotFoundException e) {
-            fail("The class " + CLASS_NAME + " has not been found in the default package.");
+            fail("The class " + CLASS_NAME + " has not been found in the default package");
             return null;
         }
     }

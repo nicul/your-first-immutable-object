@@ -1,4 +1,4 @@
-public class MyFirstImmutableEntity {
+public final class MyFirstImmutableEntity {
 
     private final int myFirstImmutableField;
 
