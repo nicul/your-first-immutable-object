@@ -11,7 +11,7 @@ public class MyFirstImmutableEntityTest {
 
     private static final String CLASS_NAME = "MyFirstImmutableEntity";
     private static final String FIELD_NAME = "myFirstImmutableField";
-    public static final String GETTER_METHOD_NAME = "getMyFirstImmutableField";
+    private static final String GETTER_METHOD_NAME = "getMyFirstImmutableField";
 
     @Test
     public void shouldHaveCreatedPublicFinalClassWithoutAnyPackage() {
