@@ -1,14 +1,17 @@
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class MyFirstImmutableEntityTest {
 
     private static final String CLASS_NAME = "MyFirstImmutableEntity";
     private static final String FIELD_NAME = "myFirstImmutableField";
+    public static final String GETTER_METHOD_NAME = "getMyFirstImmutableField";
 
     @Test
     public void shouldHaveCreatedPublicFinalClassWithoutAnyPackage() {
@@ -46,6 +49,22 @@ public class MyFirstImmutableEntityTest {
 
     @Test
     public void shouldHaveCreatedGetterMethodForTheField() {
+        final Class<?> myFirstImmutableClass = assertClassExistsInDefaultPackage();
+
+        try {
+            final Method getter = myFirstImmutableClass.getDeclaredMethod(GETTER_METHOD_NAME);
+            if(!Modifier.isPublic(getter.getModifiers())) {
+                fail("The method " + GETTER_METHOD_NAME + " has been found in " + CLASS_NAME +
+                        " but it isn't declared 'public'");
+            }
+
+            MyFirstImmutableEntity myFirstImmutableEntity = new MyFirstImmutableEntity(3);
+            assertEquals(3, myFirstImmutableEntity.getMyFirstImmutableField(),
+                    "The " + GETTER_METHOD_NAME + " method doesn't return the correct result.");
+
+        } catch (NoSuchMethodException e) {
+            fail("The method " + GETTER_METHOD_NAME + " has not been declared in " + CLASS_NAME);
+        }
 
     }
 

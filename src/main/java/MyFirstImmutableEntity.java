@@ -5,4 +5,8 @@ public final class MyFirstImmutableEntity {
     public MyFirstImmutableEntity(int myFirstImmutableField) {
         this.myFirstImmutableField = myFirstImmutableField;
     }
+
+    public int getMyFirstImmutableField() {
+        return myFirstImmutableField;
+    }
 }
